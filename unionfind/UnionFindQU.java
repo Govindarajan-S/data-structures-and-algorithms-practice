@@ -1,3 +1,5 @@
+package unionfind;
+
 /**
  * UnionFindQU class implements the QuickUnion algorithm
  * 

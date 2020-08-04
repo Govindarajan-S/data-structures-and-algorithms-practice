@@ -1,3 +1,5 @@
+package unionfind;
+
 /**
  * UnionFindQF class implements the Quick Find algorithm.
  * 
@@ -8,7 +10,7 @@ public class UnionFindQF {
     private int ids[];
 
     /**
-     * UnionFind constructor creates an initial array with values 0 to N - 1 where
+     * UnionFindQF constructor creates an initial array with values 0 to N - 1 where
      * N is noOfElements given as input
      * 
      * @param noOfElements
