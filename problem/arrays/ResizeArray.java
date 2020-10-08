@@ -75,6 +75,40 @@ public class ResizeArray {
         return size() == 0;
     }
 
+    public void delete(int index) {
+        if (index < 0 || index >= size) {
+            throw new RuntimeException("Array Index is out of bounds!");
+        }
+        for (int i = index; i < size; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
+    }
+
+    public void remove(int value) {
+        int[] newArr = new int[capacity];
+        int count = 0;
+        for (int i = 0; i < size(); i++) {
+            if (arr[i] != value) {
+                newArr[count++] = arr[i];
+            }
+        }
+        size = count;
+        arr = newArr;
+        if (size == capacity / 4) {
+            arr = resize(capacity / 2);
+        }
+    }
+
+    public int find(int value) {
+        for (int i = 0; i < size(); i++) {
+            if (arr[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         testGetWithinRange();
         testGetLessThanZero();
@@ -85,6 +119,12 @@ public class ResizeArray {
         testPrepend();
         testPopWhenValueAvailable();
         testPopWhenValueNotAvailable();
+        testDeleteWhenValueNotAvailable();
+        testDeleteWhenValueAvailable();
+        testRemoveWhenDuplicateValuesAvailable();
+        testRemoveWhenUniqueValuesAvailable();
+        testFindWhenValuePresent();
+        testFindWhenValueNotPresent();
     }
 
     private static void testGetLessThanZero() {
@@ -191,5 +231,69 @@ public class ResizeArray {
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void testDeleteWhenValueNotAvailable() {
+        ResizeArray resizeArray = new ResizeArray();
+        try {
+            resizeArray.delete(-2);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testDeleteWhenValueAvailable() {
+        ResizeArray resizeArray = new ResizeArray();
+        resizeArray.addLast(1);
+        resizeArray.addLast(2);
+        resizeArray.addLast(3);
+        resizeArray.addLast(4);
+        resizeArray.addLast(5);
+        resizeArray.delete(2);
+        resizeArray.delete(3);
+        for (int i = 0; i < resizeArray.size(); i++) {
+            System.out.println(resizeArray.get(i));
+        }
+    }
+
+    public static void testRemoveWhenDuplicateValuesAvailable() {
+        ResizeArray resizeArray = new ResizeArray();
+        resizeArray.addLast(1);
+        resizeArray.addLast(1);
+        resizeArray.addLast(2);
+        resizeArray.addLast(2);
+        resizeArray.addLast(2);
+        resizeArray.remove(2);
+        for (int i = 0; i < resizeArray.size(); i++) {
+            System.out.println(resizeArray.get(i));
+        }   
+    }
+
+    public static void testRemoveWhenUniqueValuesAvailable() {
+        ResizeArray resizeArray = new ResizeArray();
+        resizeArray.addLast(1);
+        resizeArray.addLast(2);
+        resizeArray.addLast(3);
+        resizeArray.addLast(4);
+        resizeArray.addLast(5);
+        resizeArray.remove(1);
+        for (int i = 0; i < resizeArray.size(); i++) {
+            System.out.println(resizeArray.get(i));
+        }
+    }
+
+    public static void testFindWhenValueNotPresent() {
+        ResizeArray resizeArray = new ResizeArray();
+        System.out.println(resizeArray.find(3));
+    }
+
+    public static void testFindWhenValuePresent() {
+        ResizeArray resizeArray = new ResizeArray();
+        resizeArray.addLast(1);
+        resizeArray.addLast(2);
+        resizeArray.addLast(3);
+        resizeArray.addLast(4);
+        resizeArray.addLast(5);
+        System.out.println(resizeArray.find(3));
     }
 }
