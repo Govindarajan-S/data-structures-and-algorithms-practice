@@ -44,10 +44,42 @@ public class LinkedList {
         size++;
     }
 
+    public String popFront() {
+        if (head == null) {
+            throw new NoSuchElementException("Linked List is Empty!");
+        } else {
+            String value = head.value;
+            head = head.next;
+            size--;
+            return value;
+        }
+    }
+
+    public void pushBack(String value) {
+        Node newNode = new Node(value);
+        if (head == null) {
+            head = newNode;
+            size++;
+        } else {
+            Node prev, current;
+            prev = null;
+            current = head;
+            while (current != null) {
+                prev = current;
+                current = current.next;
+            }
+            prev.next = newNode;
+            size++;
+        }
+    }
+
     public static void main(String[] args) {
         testPushFront();
         testValueAtUsingValidIndex();
         testValueAtUsingInvalidIndex();
+        testPopFrontWhenEmpty();
+        testPopFrontWhenNonEmpty();
+        testPushBack();
     }
 
     public static void testPushFront() {
@@ -89,6 +121,48 @@ public class LinkedList {
             System.out.println(llist.valueAt(5));
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testPopFrontWhenEmpty() {
+        LinkedList llist = new LinkedList();
+        try {
+            System.out.println(llist.popFront());
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testPopFrontWhenNonEmpty() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        llist.popFront();
+        llist.popFront();
+        llist.popFront();
+        llist.popFront();
+        llist.popFront();
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testPushBack() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
         }
     }
 }
