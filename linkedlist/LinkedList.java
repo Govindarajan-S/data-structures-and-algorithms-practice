@@ -73,6 +73,26 @@ public class LinkedList {
         }
     }
 
+    public String popBack() {
+        if (head == null) {
+            throw new NoSuchElementException("Linked List is Empty!");
+        } else {
+            Node prev, current;
+            prev = null;
+            current = head;
+            while (current.next != null) {
+                prev = current;
+                current = current.next;
+            }
+            String value = current.value;
+            size--;
+            if (prev != null) {
+                prev.next = null;
+            }
+            return value;
+        }
+    }
+
     public static void main(String[] args) {
         testPushFront();
         testValueAtUsingValidIndex();
@@ -80,6 +100,8 @@ public class LinkedList {
         testPopFrontWhenEmpty();
         testPopFrontWhenNonEmpty();
         testPushBack();
+        testPopBackWhenEmpty();
+        testPopBackWhenNonEmpty();
     }
 
     public static void testPushFront() {
@@ -164,5 +186,28 @@ public class LinkedList {
             System.out.println(current.value);
             current = current.next;
         }
+    }
+    
+    public static void testPopBackWhenEmpty() {
+        LinkedList llist = new LinkedList();
+        try {
+            llist.popBack();
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testPopBackWhenNonEmpty() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        System.out.println(llist.popBack());
+        System.out.println(llist.popBack());
+        System.out.println(llist.popBack());
+        System.out.println(llist.popBack());
+        System.out.println(llist.popBack());
     }
 }
