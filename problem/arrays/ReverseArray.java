@@ -1,4 +1,4 @@
-package problem;
+package problem.arrays;
 
 public class ReverseArray {
     // Complete the reverseArray function below.

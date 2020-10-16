@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class LowestCommonAncestor {
     
-    public class Node {
+    public static class Node {
         Node left;
         Node right;
         int data;

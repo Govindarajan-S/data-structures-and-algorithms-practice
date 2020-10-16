@@ -7,9 +7,9 @@ package unionfind;
  */
 public class WeightedUnionFindQU {
     
-    private int[] size;
+    public int[] size;
 
-    private int[] ids;
+    public int[] ids;
 
     /**
      * WeightedUnionFindQU constructor creates an initial array with values 0 to N - 1
@@ -17,7 +17,7 @@ public class WeightedUnionFindQU {
      * 
      * @param noOfElements
      */
-    WeightedUnionFindQU(int noOfElements) {
+    public WeightedUnionFindQU(int noOfElements) {
         size = new int[noOfElements];
         ids = new int[noOfElements];
         for (int index = 0; index < noOfElements; index++) {
@@ -35,7 +35,7 @@ public class WeightedUnionFindQU {
      * @param element
      * @return
      */
-    private int getRoot(int element) {
+    public int getRoot(int element) {
         while (ids[element] != element) {
             // Compress path of the element to root
             ids[element] = ids[ids[element]];
@@ -53,7 +53,7 @@ public class WeightedUnionFindQU {
      * @param element1
      * @param element2
      */
-    private void union(int p, int q) {
+    public void union(int p, int q) {
         int pRoot = getRoot(p);
         int qRoot = getRoot(q);
         if (pRoot == qRoot) {
@@ -73,7 +73,7 @@ public class WeightedUnionFindQU {
      * Two elements are connected if root of both elements are same.
      * Otherwise the two elements are not connected.
      */
-    private boolean connected(int p, int q) {
+    public boolean connected(int p, int q) {
         return getRoot(p) == getRoot(q);
     }
 

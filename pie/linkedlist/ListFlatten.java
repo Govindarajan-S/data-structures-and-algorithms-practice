@@ -36,7 +36,6 @@ public class ListFlatten {
                     tail = tail.next;
                 }
                 queue.addLast(tail);
-                current.child = null;
             }
         }
         return head;

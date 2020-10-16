@@ -22,10 +22,6 @@ public class LinkedList {
             return next;
         }
 
-        public void setValue(String value) {
-            this.value = value;
-        }
-
         public void setNext(Node next) {
             this.next = next;
         }
@@ -145,15 +141,15 @@ public class LinkedList {
     }
 
     public void reverse() {
-        Node next = head.getNext();
-        head.setNext(null);
-        while (next.getNext() != null) {
-            pushFront(next.getValue());
-            next = next.getNext();
-            size--;
+        Node reversedPart = null;
+        Node current = head;
+        while (current != null) {
+            Node next = current.next;
+            current.next = reversedPart;
+            reversedPart = current;
+            current = next;
         }
-        pushFront(next.value);
-        size--;
+        head = reversedPart;
     }
 
     public void printValues() {

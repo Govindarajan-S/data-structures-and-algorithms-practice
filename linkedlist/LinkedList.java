@@ -173,9 +173,13 @@ public class LinkedList {
             i++;
         }
         if (i == n) {
-            nFromEnd = current;
+            nFromEnd = head;
         } else {
             throw new NoSuchElementException("There is no such element " + n);
+        }
+        while (current != null) {
+            nFromEnd = nFromEnd.next;
+            current = current.next;
         }
         return nFromEnd.value;
     }

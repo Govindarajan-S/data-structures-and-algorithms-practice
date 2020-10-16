@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class BinarySearchTreeInsertion {
     
-    public class Node {
+    public static class Node {
         Node left;
         Node right;
         int data;
