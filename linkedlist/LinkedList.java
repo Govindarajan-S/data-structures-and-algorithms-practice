@@ -93,6 +93,103 @@ public class LinkedList {
         }
     }
 
+    public String front() {
+        if (head == null) {
+            return null;
+        } else {
+            return head.value;
+        }
+    }
+
+    public String back() {
+        if (head == null) {
+            return null;
+        } else {
+            Node prev, current;
+            prev = null;
+            current = head;
+            while (current != null) {
+                prev = current;
+                current = current.next;
+            }
+            return prev.value;
+        }
+    }
+
+    public void insert(int index, String value) {
+        Node newNode = new Node(value);
+        Node prev, current;
+        prev = null;
+        current = head;
+        int i = 0;
+        while (i < index && current != null) {
+            prev = current;
+            current = current.next;
+            i++;
+        }
+        if (i == index) {
+            prev.next = newNode;
+            newNode.next = current;
+            size++;
+        } else {
+            throw new NoSuchElementException("There is no such index " + index);
+        }
+    }
+
+    public void erase(int index) {
+        Node prev, current;
+        prev = null;
+        current = head;
+        int i = 0;
+        while (i < index && current != null) {
+            prev = current;
+            current = current.next;
+            i++;
+        }
+        if (i == index) {
+            prev.next = current.next;
+            size--;
+        } else {
+            throw new NoSuchElementException("There is no such index " + index);
+        }
+    }
+
+    public String valueNFromEnd(int n) {
+        Node nFromEnd, current;
+        current = head;
+        int i = 0;
+        while (i < n && current != null) {
+            current = current.next;
+            i++;
+        }
+        if (i == n) {
+            nFromEnd = current;
+        } else {
+            throw new NoSuchElementException("There is no such element " + n);
+        }
+        while (current != null) {
+            nFromEnd = nFromEnd.next;
+            current = current.next;
+        }
+        return nFromEnd.value;
+    }
+
+    public void removeValue(String value) {
+        Node prev, current;
+        prev = null;
+        current = head;
+        while (current != null && current.value != value) {
+            prev = current;
+            current = current.next;
+        }
+        if (current == null) {
+            return;
+        } else {
+            prev.next = current.next;
+            size--;
+        }
+    }
+
     public static void main(String[] args) {
         testPushFront();
         testValueAtUsingValidIndex();
