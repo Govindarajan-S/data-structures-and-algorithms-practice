@@ -128,7 +128,12 @@ public class LinkedList {
             i++;
         }
         if (i == index) {
-            prev.next = newNode;
+            if (prev == null) {
+                prev = newNode;
+                head = prev;
+            } else {
+                prev.next = newNode;
+            }
             newNode.next = current;
             size++;
         } else {
@@ -147,7 +152,12 @@ public class LinkedList {
             i++;
         }
         if (i == index) {
-            prev.next = current.next;
+            if (prev == null) {
+                current = current.next;
+                head = current;
+            } else {
+                prev.next = current.next;
+            }
             size--;
         } else {
             throw new NoSuchElementException("There is no such index " + index);
@@ -166,10 +176,6 @@ public class LinkedList {
             nFromEnd = current;
         } else {
             throw new NoSuchElementException("There is no such element " + n);
-        }
-        while (current != null) {
-            nFromEnd = nFromEnd.next;
-            current = current.next;
         }
         return nFromEnd.value;
     }
@@ -199,6 +205,24 @@ public class LinkedList {
         testPushBack();
         testPopBackWhenEmpty();
         testPopBackWhenNonEmpty();
+        testFrontWhenEmpty();
+        testFrontWhenNonEmpty();
+        testBackWhenEmpty();
+        testBackWhenNonEmpty();
+        testInsertAtFront();
+        testInsertAtMiddle();
+        testInsertAtEnd();
+        testInsertForNegativeValue();
+        testInsertForValueAfterEnd();
+        testEraseAtFront();
+        testEraseAtMiddle();
+        testEraseAtEnd();
+        testEraseForNegativeValue();
+        testEraseForValueAfterEnd();
+        testValueNFromEndWhenValueInList();
+        testValueNFromEndWhenValueNotInList();
+        testRemoveValueWhenValueInList();
+        testRemoveValueWhenValueNotInList();
     }
 
     public static void testPushFront() {
@@ -306,5 +330,231 @@ public class LinkedList {
         System.out.println(llist.popBack());
         System.out.println(llist.popBack());
         System.out.println(llist.popBack());
+    }
+
+    public static void testFrontWhenEmpty() {
+        LinkedList llist = new LinkedList();
+        try {
+            llist.front();
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testFrontWhenNonEmpty() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        System.out.println(llist.front());
+    }
+
+    public static void testBackWhenEmpty() {
+        LinkedList llist = new LinkedList();
+        try {
+            llist.back();
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testBackWhenNonEmpty() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        System.out.println(llist.back());
+    }
+
+    public static void testInsertAtFront() {
+        LinkedList llist = new LinkedList();
+        llist.insert(0, "1");
+        llist.insert(0, "2");
+        llist.insert(0, "3");
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testInsertAtMiddle() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        llist.insert(1, "2");
+        llist.insert(2, "3");
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testInsertAtEnd() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        llist.insert(1, "2");
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testInsertForNegativeValue() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        try {
+            llist.insert(-1, "2");
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testInsertForValueAfterEnd() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        try {
+            llist.insert(2, "2");
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testEraseAtFront() {
+        LinkedList llist = new LinkedList();
+        llist.insert(0, "1");
+        llist.insert(0, "2");
+        llist.insert(0, "3");
+        llist.erase(0);
+        llist.erase(0);
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testEraseAtMiddle() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        llist.insert(1, "2");
+        llist.insert(2, "3");
+        llist.erase(1);
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testEraseAtEnd() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        llist.insert(1, "2");
+        llist.erase(1);
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testEraseForNegativeValue() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        try {
+            llist.erase(-1);
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testEraseForValueAfterEnd() {
+        LinkedList llist = new LinkedList();
+        llist.pushFront("1");
+        try {
+            llist.erase(2);
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testValueNFromEndWhenValueInList() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        System.out.println(llist.valueNFromEnd(2));
+    }
+
+    public static void testValueNFromEndWhenValueNotInList() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        try {
+            llist.valueNFromEnd(6);
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testRemoveValueWhenValueInList() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        llist.removeValue("2");
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
+    }
+
+    public static void testRemoveValueWhenValueNotInList() {
+        LinkedList llist = new LinkedList();
+        llist.pushBack("1");
+        llist.pushBack("2");
+        llist.pushBack("3");
+        llist.pushBack("4");
+        llist.pushBack("5");
+        llist.removeValue("6");
+        Node current = llist.head;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.next;
+        }
     }
 }
